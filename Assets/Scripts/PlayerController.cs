@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 // Include the namespace required to use Unity UI and Input System
 using UnityEngine.InputSystem;
@@ -73,5 +75,9 @@ public class PlayerController : MonoBehaviour
 			// Set the text value of your 'winText'
 			winTextObject.SetActive(true);
 		}
+	}
+	public void ReturnMenu()
+    {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 	}
 }
