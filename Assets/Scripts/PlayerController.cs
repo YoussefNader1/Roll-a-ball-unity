@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	public TextMeshProUGUI countText;
 	public GameObject winTextObject;
+	
 
 	private float movementX;
 	private float movementY;
@@ -20,11 +21,15 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody rb;
 	private int count;
 
+	public AudioSource tickSource;
+	
+
 	// At the start of the game..
 	void Start()
 	{
 		// Assign the Rigidbody component to our private rb variable
 		rb = GetComponent<Rigidbody>();
+		tickSource = GetComponent<AudioSource>();
 
 		// Set the count to zero 
 		count = 0;
@@ -48,6 +53,7 @@ public class PlayerController : MonoBehaviour
 		// ..and if the GameObject you intersect has the tag 'Pick Up' assigned to it..
 		if (other.gameObject.CompareTag("PickUp"))
 		{
+			tickSource.Play();
 			other.gameObject.SetActive(false);
 
 			// Add one to the score variable 'count'
@@ -72,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
 		if (count >= 12)
 		{
+
 			// Set the text value of your 'winText'
 			winTextObject.SetActive(true);
 		}
