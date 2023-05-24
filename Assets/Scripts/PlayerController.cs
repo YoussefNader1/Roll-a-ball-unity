@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	public TextMeshProUGUI countText;
 	public GameObject winTextObject;
+	private int level;
+
 	
 
 	private float movementX;
@@ -22,7 +24,8 @@ public class PlayerController : MonoBehaviour
 	private int count;
 
 	public AudioSource tickSource;
-	
+	public GameObject nextLevel;
+
 
 	// At the start of the game..
 	void Start()
@@ -30,12 +33,12 @@ public class PlayerController : MonoBehaviour
 		// Assign the Rigidbody component to our private rb variable
 		rb = GetComponent<Rigidbody>();
 		tickSource = GetComponent<AudioSource>();
-
+		//nextLevel.SetActive(false);
 		// Set the count to zero 
 		count = 0;
 
 		SetCountText();
-
+		level = SceneManager.GetActiveScene().buildIndex;
 		// Set the text property of the Win Text UI to an empty string, making the 'You Win' (game over message) blank
 		winTextObject.SetActive(false);
 	}
@@ -76,15 +79,18 @@ public class PlayerController : MonoBehaviour
 	{
 		countText.text = "Count: " + count.ToString();
 
-		if (count >= 12)
+		if (level == 1 && count >= 12)
 		{
 
 			// Set the text value of your 'winText'
 			winTextObject.SetActive(true);
+			nextLevel.SetActive(true);
+		}
+        else if (level == 2 && count == 21)
+        {
+			winTextObject.SetActive(true);
+
 		}
 	}
-	public void ReturnMenu()
-    {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-	}
+
 }
